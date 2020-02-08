@@ -7,15 +7,6 @@ udp_server::udp_server(asio::io_service& io_service, int port)
 }
 
 void udp_server::start_receive() {
-  /*
-  asio::async_read(
-    m_socket, asio::buffer(m_recv_buffer, 1), asio::transfer_exactly(1),
-    std::bind(
-      &udp_server::handle_receive, this,
-      std::placeholders::_1, std::placeholders::_2
-    )
-  );
-  */
   m_socket.async_receive_from(
     asio::buffer(m_recv_buffer, 1), m_endpoint,
     std::bind(
@@ -23,22 +14,6 @@ void udp_server::start_receive() {
       std::placeholders::_1, std::placeholders::_2
     )
   );
-  /*
-  std::size_t bytes_transferred = m_socket.receive_from(
-    asio::buffer(m_recv_buffer, 1), m_endpoint
-  );
-  std::cout << "Received " << bytes_transferred << " bytes: " << std::string(m_recv_buffer.begin(), m_recv_buffer.end()) << std::endl;
-
-  std::string message = "0123456789";
-  m_socket.async_send_to(
-    asio::buffer(message), m_endpoint,
-    std::bind(
-      &udp_server::handle_send, this, message,
-      std::placeholders::_1, std::placeholders::_2
-    )
-  );
-  start_receive();
-  */
 }
 
 void udp_server::handle_receive(const asio::error_code &error, std::size_t bytes_transferred) {

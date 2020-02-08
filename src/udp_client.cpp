@@ -21,12 +21,6 @@ void udp_client::start_send() {
 void udp_client::handle_send(const std::string &message, const asio::error_code &error, std::size_t bytes_transferred) {
   if (!error) {
     std::cout << "Sent " << bytes_transferred << " bytes: "  << message << std::endl;
-    /*
-    asio::streambuf buf;
-    asio::read(
-			m_socket, buf, asio::transfer_exactly(10)
-    );
-    */
     m_socket.async_receive_from(
 			asio::buffer(m_recv_buffer, 10), m_endpoint,
 			std::bind(&udp_client::handle_receive, this,
@@ -34,12 +28,6 @@ void udp_client::handle_send(const std::string &message, const asio::error_code 
 				std::placeholders::_2
       )
     );
-    /*
-    std::size_t bytes_transferred = m_socket.receive_from(
-			asio::buffer(m_recv_buffer, 10), m_endpoint
-    );
-    std::cout << "Received " << bytes_transferred << " bytes: "  << std::string(m_recv_buffer.begin(), m_recv_buffer.end()) << std::endl;
-    */
   }
   return;
 }
