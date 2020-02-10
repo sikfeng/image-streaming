@@ -8,6 +8,7 @@
 #include <functional>
 #include <vector>
 #include <asio.hpp>
+#include "webcam.hpp"
 
 class udp_server {
   public:
@@ -21,6 +22,7 @@ class udp_server {
 
     int m_port;
     std::vector<char> m_recv_buffer;
+    webcam m_webcam{0};
     asio::ip::udp::socket m_socket;
     asio::ip::udp::endpoint m_endpoint;
 };

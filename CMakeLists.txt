@@ -24,10 +24,12 @@ else()
   endif()
 endif()
 
+find_package(OpenCV REQUIRED)
+
 include_directories(include)
 
-add_executable(server src/server.cpp src/udp_server.cpp)
-target_link_libraries(server ${ZLIB_LIBRARIES})
+add_executable(server src/server.cpp src/udp_server.cpp src/webcam.cpp)
+target_link_libraries(server ${ZLIB_LIBRARIES} ${OpenCV_LIBRARIES})
 
-add_executable(client src/client.cpp src/udp_client.cpp)
-target_link_libraries(client ${ZLIB_LIBRARIES})
+add_executable(client src/client.cpp src/udp_client.cpp src/webcam.cpp)
+target_link_libraries(client ${ZLIB_LIBRARIES} ${OpenCV_LIBRARIES})

@@ -18,9 +18,13 @@ void udp_server::start_receive() {
 
 void udp_server::handle_receive(const asio::error_code &error, std::size_t bytes_transferred) {
   if (!error) {
-    std::cout << "Received " << bytes_transferred << " bytes: " << std::string(m_recv_buffer.begin(), m_recv_buffer.end()) << std::endl;
+    std::cout << "Received " << bytes_transferred << " bytes: " 
+              << std::string(m_recv_buffer.begin(), m_recv_buffer.end()) 
+              << std::endl;
 
-    std::string message = "0123456789";
+    //std::string message = "0123456789";
+    std::vector<uchar> frame = m_webcam.encode();
+    std::string message(frame.begin(), frame.end());
     m_socket.async_send_to(
       asio::buffer(message), m_endpoint,
       std::bind(
@@ -34,7 +38,8 @@ void udp_server::handle_receive(const asio::error_code &error, std::size_t bytes
 
 void udp_server::handle_send(const std::string &message, const asio::error_code &error, std::size_t bytes_transferred) {
   if (!error) {
-    std::cout << "Sent " << bytes_transferred << " bytes: " << message << std::endl;
+    //std::cout << "Sent " << bytes_transferred << " bytes: " << message << std::endl;
+    std::cout << "Sent " << bytes_transferred << " bytes: " << std::endl;
   }
   return;
 }
