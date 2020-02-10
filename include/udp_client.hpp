@@ -13,7 +13,7 @@ class udp_client {
   public:
 		udp_client();
 		udp_client(asio::io_service& io_service, const std::string &address, int port);
-    std::vector<char> get_recv_buffer();
+    std::vector<unsigned char> get_recv_buffer();
 
   private:
     void start_send();
@@ -22,7 +22,7 @@ class udp_client {
     void handle_send(const std::string &message, const asio::error_code &error, std::size_t bytes_transferred);
 
     int m_port;
-    std::vector<char> m_recv_buffer;
+    std::vector<unsigned char> m_recv_buffer;
     std::mutex m_recv_buffer_mutex;
     const std::string m_address;
     asio::ip::udp::socket m_socket;

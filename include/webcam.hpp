@@ -20,7 +20,7 @@ class webcam {
     void update_frames();
     cv::VideoCapture m_camera;
     cv::Mat m_frame;
-    std::vector<int> m_params{cv::IMWRITE_JPEG_QUALITY , 80};
+    std::vector<int> m_params{cv::IMWRITE_JPEG_QUALITY , 60};
     std::future<void> m_update_frames_async;
     std::mutex m_frame_mutex;
     std::atomic<bool> m_terminate_update{false};

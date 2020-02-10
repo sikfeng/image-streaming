@@ -23,7 +23,7 @@ void udp_server::handle_receive(const asio::error_code &error, std::size_t bytes
               << std::endl;
 
     //std::string message = "0123456789";
-    std::vector<uchar> frame = m_webcam.encode();
+    std::vector<unsigned char> frame = m_webcam.encode();
     std::string message(frame.begin(), frame.end());
     m_socket.async_send_to(
       asio::buffer(message), m_endpoint,

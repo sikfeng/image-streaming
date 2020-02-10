@@ -11,7 +11,7 @@ void signal_handler(int signal) {
 //std::atomic<bool> terminate_display{false};
 
 void display_frame(udp_client &client) {
-  std::vector<char> raw_frame = client.get_recv_buffer();
+  std::vector<unsigned char> raw_frame = client.get_recv_buffer();
   cv::Mat frame = cv::imdecode(raw_frame, cv::IMREAD_UNCHANGED);
   while (true) {
     //std::lock_guard<std::mutex> guard(frame_mutex);
@@ -24,6 +24,7 @@ void display_frame(udp_client &client) {
       raw_frame = client.get_recv_buffer();
       frame = cv::imdecode(raw_frame, cv::IMREAD_UNCHANGED);
       cv::imshow("frame", frame);
+      cv::waitKey(1);
     } catch (cv::Exception &e) {
       std::cerr << e.what() << std::endl;
     } catch (std::exception &e) {
